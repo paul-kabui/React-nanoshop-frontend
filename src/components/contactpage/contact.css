@@ -1,0 +1,11 @@
+.main-body{
+    margin-top: 3.6rem;
+    background-image: url('./images/background3.jpg');
+    background-size: cover;
+    background-color: black !important;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.text{
+    padding-left: 4.6rem;
+}

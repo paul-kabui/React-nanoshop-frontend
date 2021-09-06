@@ -1,0 +1,36 @@
+
+.carousel-caption {
+    bottom: 7rem;
+    z-index: 10;
+}
+.carousel-item {
+    height: 91vh;
+}
+.carousel-item > img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    height: 32rem;
+}
+
+@media (min-width: 768px) {
+    .carousel-caption {
+        bottom: 15rem;
+    }   
+}
+.heading{
+    /* color: #4dcef6; */
+    color: orange;
+}
+
+.overlay-image{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    top: 0;
+    background-position: center;
+    background-size: cover;
+    opacity: 0.5;
+}
