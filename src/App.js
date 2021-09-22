@@ -1,6 +1,5 @@
 import {Route, Switch} from 'react-router-dom'
 
-import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import Home from './pages/home'
@@ -29,7 +28,7 @@ function App() {
 			<Route path="/my order">
 				<OrderPage/>
 			</Route>
-			<Route path="/about Us">
+			<Route path="/Services">
 				<About/>
 			</Route>
 			<Route path="/cart">

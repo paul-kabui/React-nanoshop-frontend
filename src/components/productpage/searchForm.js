@@ -1,5 +1,4 @@
-import './search.css'
-
+import './product.css'
 function Search(){
     return(
         <div className="container-fluid search">

@@ -1,7 +1,9 @@
+import AboutCont from "../components/aboutpage/aboutcomp"
+
 function About(){
     return(
-        <div className="mt-5">
-            <h4>about us page</h4>
+        <div style={{'marginTop':'5rem'}}>
+            <AboutCont/>
         </div>
     )
 }

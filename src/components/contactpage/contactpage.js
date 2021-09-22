@@ -7,8 +7,9 @@ import email from './images/email.svg'
 
 function ContactContent(){
     return(
-        <div className="main-body">
-            <h4 className="fw-bold text">Leave an Email</h4>
+        <div className="m-3">
+            <div className="main-body">
+            <h4 className="fw-bold text text-muted">Leave an Email</h4>
             <ContactForm/>
             <div className="text-center mt-2">
                 <div className="d-flex justify-content-center py-2">
@@ -17,10 +18,11 @@ function ContactContent(){
                     <a href="//facebook.com"><img src={facebook} alt="not found" height="35px"/></a><br/><br/>
                 </div>
                 <div>
-                    <span className="text-light"><img src={phone} alt="not found" height="35px"/>0790879541</span><br/>
-                    <span className="text-light"><img src={phone} alt="not found" height="35px"/>0731535249</span>
+                    <span><img src={phone} alt="not found" height="35px"/>0790879541</span><br/>
+                    <span><img src={phone} alt="not found" height="35px"/>0731535249</span>
                 </div>
             </div>
+        </div>
         </div>
     )
 }

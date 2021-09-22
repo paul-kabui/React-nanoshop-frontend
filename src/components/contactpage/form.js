@@ -1,8 +1,8 @@
-
+import './contact.css'
 
 function ContactForm(){
     return(
-        <div style={{'border': "1px solid black", 'boxShadow':"1px 3px 1px 3px"}} className="container-md">
+        <div className="container-md shadow border cont-form">
             <div className="row d-block">
                 <form className="p-5">
                     <div className="col-md-3">

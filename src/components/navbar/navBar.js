@@ -6,7 +6,7 @@ function Nav(){
         <div>
             <nav className="navbar navbar-expand-md bg-dark navbar-dark fixed-top mb-5">
                 <div className="container-fluid">
-                    <h4 className="navbar-brand" >Eworkshop</h4>
+                    <h4 className="navbar-brand" >Nano</h4>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                       <span className="navbar-toggler-icon"></span>
                     </button>
@@ -27,10 +27,10 @@ function Nav(){
                                 <Link to="/my order" className="nav-link">My order</Link>
                             </li>
                             <li className="nav-item">
-                                <Link to="/about Us" className="nav-link">About us</Link>
+                                <Link to="/Services" className="nav-link">Services</Link>
                             </li>
                             <li className="nav-item">
-                                <Link to="/cart" className="nav-link" href="#">Cart</Link>
+                                <Link to="/cart" className="nav-link">Cart</Link>
                             </li>
                         </ul>
                     </div>
