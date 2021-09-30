@@ -1,23 +1,29 @@
+import { useContext } from 'react'
+import LocalCartContext from '../../store/cart-ctx'
 
 function ProductItem(props){
-    console.log(props)
+    const cartCtx = useContext(LocalCartContext)
+    const isCartItem = cartCtx.isCartItem(props.productId)
     function cartHandler(){
-        if(typeof(Storage) !== 'undefined'){
-            let item = {
-                "name" : props.productName,
-                'id' : props.id,
-                'price' : props.price,
-                'quantity' : props.quantity
-               
-            }
-            localStorage.setItem('items', JSON.stringify(item))
+        if(isCartItem){
+            return(
+                <div className="alert alert-primary alert-dismissible fade show" role="alert">
+                    A simple primary alert with Give it a click if you like.
+                    <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            )
         }else{
-            alert("Your browser is not compatible with this cart functionality")
+            cartCtx.addToCart({
+                id : props.productId,
+                name : props.productName,
+                price : props.price
+            })
         }
     }
+    
     return(
         <li className="col-md-3">
-            <div className="card">
+            <div className="card shadow">
                 <div>
                     <img src={props.image} className="img-fluid" alt={props.productName}/>
                 </div>
@@ -29,7 +35,13 @@ function ProductItem(props){
                     </div>
                     <div className="btn-group">
                         <button className="btn btn-sm btn-outline-primary">Details</button>
-                        <button className="btn btn-sm btn-outline-primary" onClick={cartHandler}>Add to cart</button>
+                        {
+                        isCartItem ? <button className="btn btn-sm btn-success"onClick={cartHandler}>
+                            Added to cart
+                        </button> : <button className="btn btn-sm btn-outline-primary"onClick={cartHandler}>
+                            Add to cart
+                        </button>
+                        }
                     </div>
                 </div>
             </div>

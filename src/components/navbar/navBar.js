@@ -1,13 +1,18 @@
 import {Link} from 'react-router-dom'
 import './navBar.css'
+import {useContext} from "react"
+import LocalCartContext from '../../store/cart-ctx'
 
 function Nav(){
+    const cartCtx = useContext(LocalCartContext)
+
     return(
         <div>
             <nav className="navbar navbar-expand-md bg-dark navbar-dark fixed-top mb-5">
                 <div className="container-fluid">
                     <h4 className="navbar-brand" >Nano</h4>
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" 
+                        aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                       <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarCollapse">
@@ -30,7 +35,7 @@ function Nav(){
                                 <Link to="/Services" className="nav-link">Services</Link>
                             </li>
                             <li className="nav-item">
-                                <Link to="/cart" className="nav-link">Cart</Link>
+                                <Link to="/cart" className="nav-link">Cart <span className='badge text-primary'>{cartCtx.cartNumber}</span></Link>
                             </li>
                         </ul>
                     </div>
