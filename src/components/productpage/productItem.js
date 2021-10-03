@@ -6,17 +6,15 @@ function ProductItem(props){
     const isCartItem = cartCtx.isCartItem(props.productId)
     function cartHandler(){
         if(isCartItem){
-            return(
-                <div className="alert alert-primary alert-dismissible fade show" role="alert">
-                    A simple primary alert with Give it a click if you like.
-                    <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            )
+            cartCtx.removeFromCart(props.productId)
         }else{
             cartCtx.addToCart({
                 id : props.productId,
                 name : props.productName,
-                price : props.price
+                intialPrice : props.price,
+                userQuanitity : 1,
+                calculatedPrice : 0,
+                totalItemsAvailable : props.quantity
             })
         }
     }

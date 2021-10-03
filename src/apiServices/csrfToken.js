@@ -1,3 +1,18 @@
+export function GetCsrfToken(){
+    fetch(
+        'http://127.0.0.1:8000/get-csrf-token/'
+    )
+    .then(rensponse =>{
+        return rensponse.json()
+    })
+    .then((data) => {
+        console.log(data)
+        
+    })
+
+}
+
+
 function getToken(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -14,9 +29,27 @@ function getToken(name) {
 }
 var csrftoken = getToken('csrftoken');
 
-const CSRFToken = () => {
-    return (
-        <input type="hidden" name="csrfmiddlewaretoken" value={csrftoken} />
-    );
-};
-export default CSRFToken;
+export function PostRequest(url, data){
+    fetch(
+        url,
+        {
+            method : 'POST',
+            credentials: 'same-origin',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                // "X-CSRFToken" : csrftoken,
+            },
+            body:JSON.stringify(data),
+        }
+        
+    )
+    .then(rensponse =>{
+        return rensponse.json()
+    })
+    // .then((data) => {
+    //     setPaymentResp(data)
+    //     setIsLoading(false)
+        
+    // })
+}

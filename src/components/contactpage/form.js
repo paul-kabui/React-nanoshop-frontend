@@ -10,40 +10,24 @@ function ContactForm(){
     const [resp, setResp] = useState([])
     const [loaded, setLoaded] = useState(false)
 
-    function GetToken(name) {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            const cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                const cookie = cookies[i].trim();
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
-    var csrftoken = GetToken('csrftoken');
-
     function emailHandler(e){
         e.preventDefault()
         const emailField = emailRef.current.value
         const subjectField = subjectRef.current.value
         const messageField = messageRef.current.value
 
+
         fetch(
             'http://127.0.0.1:8000/Emails',
             {
                 method : 'POST',
-                // credentials: 'same-origin',
+                credentials: 'include',
                 headers: {
                     'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    "X-CSRFToken" : csrftoken,
+                    'Content-Type': 'API-key',
                 },
                 body:JSON.stringify({
-                    csrfmiddlewaretoken: csrftoken,
+                    // csrfmiddlewaretoken: csrftoken,
                     'email' : emailField,
                     'subject' : subjectField,
                     'message' : messageField
@@ -52,6 +36,7 @@ function ContactForm(){
             
         )
         .then(rensponse =>{
+            console.log(rensponse)
             return rensponse.json()
         }).then((data) => {
             setResp(data)
@@ -66,7 +51,7 @@ function ContactForm(){
     return(
         <div className="container-md shadow border cont-form">
             <div className="row d-block">
-                <form className="p-5" onSubmit={emailHandler}>
+                <form className="p-2 p-md-5" onSubmit={emailHandler}>
                     {
                         loaded? <h3 className='text-success'>Email sent</h3>: ''
                     }

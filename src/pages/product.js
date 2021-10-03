@@ -16,16 +16,19 @@ function Product(){
             return rensponse.json()
         }).then(data => {
             setIsLoading(false)
-            var rcvdJson = JSON.parse(data.products)
-            const productArray = []
+            const rcvdJson = JSON.parse(data.products)
+            const productList = []
 
-            rcvdJson.forEach( dataArrays => { 
-                var dataFields = dataArrays.fields
-                var pk = 'M'+(dataArrays.pk)
-                dataFields.pk = pk
-                productArray.push(dataFields)
-                setFetchedData(productArray)
+            rcvdJson.forEach(items => { 
+                const dataFields = items.fields
+                const pk = items.pk
+                const itemsObject ={
+                    ...dataFields,
+                    pk : pk
+                }
+                productList.push(itemsObject)
             });
+            setFetchedData(productList)
         })
     },[])
     
@@ -40,59 +43,13 @@ function Product(){
         )
     }
 
-    let TestData = [
-        {
-          "product_category": "Resistors",
-          "quantity": 4,
-          "productName": "resistor",
-          "price": "100.00",
-          "display_image": "resistors_TmrF1VJ.jpeg",
-          "pk": 6
-        },
-        {
-          "product_category": "ics",
-          "quantity": 5,
-          "productName": "cd 4047",
-          "price": "250.00",
-          "display_image": "cd4047.jpeg",
-          "pk": 7
-        },
-        {
-            "product_category": "ics",
-            "quantity": 5,
-            "productName": "Multimeter",
-            "price": "12500.00",
-            "display_image": "cd4047.jpeg",
-            "pk": 8
-        },
-        {
-            "product_category": "ics",
-            "quantity": 5,
-            "productName": "Arduino uno",
-            "price": "1100.00",
-            "display_image": "cd4047.jpeg",
-            "pk": 9
-        },
-        {
-            "product_category": "ics",
-            "quantity": 5,
-            "productName": "Ir sensor",
-            "price": "450.00",
-            "display_image": "cd4047.jpeg",
-            "pk": 10
-          }
-      ]
-    
     if(fetchedData.length !== 0){
-        // console.log("test data:", TestData)
-        // console.log("fetched original data:", fetchedData)
+        console.log("fetched original data:", fetchedData)
         return(
             <div className='m-3'>
                 <Search/>
                 <hr/>
-                <ProductList productData={TestData}/>
-                {/* <h1>fetched data</h1>
-                <ProductList productData={fetchedData}/> */}
+                <ProductList productData={fetchedData}/>
                 <Footer/>
             </div>
         )
