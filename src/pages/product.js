@@ -1,4 +1,4 @@
-import Search from "../components/productpage/searchForm"
+
 import Footer from "../components/productpage/footer"
 import ProductList from "../components/productpage/productList"
 
@@ -7,6 +7,8 @@ import {useState, useEffect} from 'react'
 function Product(){
     const [isLoading, setIsLoading] = useState(true)
     const [fetchedData, setFetchedData ] = useState([])
+    const [productToSearch, setProductToSearch] = useState('')
+    const [errorMsg, setErrorMsg] = useState(false)
 
     useEffect(() => {
         fetch(
@@ -29,12 +31,18 @@ function Product(){
                 productList.push(itemsObject)
             });
             setFetchedData(productList)
+        }).catch((error)=>{
+            setErrorMsg(true)
         })
     },[])
+
+    function searchHandler(e){
+        setProductToSearch(e.target.value)
+    }
     
     if(isLoading){
         return(
-            <div className="text-center" style={{"marginTop":"15rem"}}>
+            <div className="text-center" style={{"marginTop":"14rem"}}>
                 <div className="spinner-grow display-5 text-primary" role="status">
                     <span className="visually-hidden">Loading...</span>
                 </div>
@@ -44,12 +52,28 @@ function Product(){
     }
 
     if(fetchedData.length !== 0){
-        console.log("fetched original data:", fetchedData)
         return(
             <div className='m-3'>
-                <Search/>
+                {
+                    errorMsg? 
+                    <div className="col-md-9 alert alert-danger alert-dismissible fade show" role="alert">
+                        <h4>Network error!!</h4>
+                        <p>check your network and try again</p>
+                        <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div> 
+                    :
+                    ''
+                }
+                <div className="container-fluid search">
+                    <div className="row">
+                        <div className="col-md-9"></div>
+                        <div className="col-md-3">
+                            <input type="search" className="form-control" placeholder="Search" onChange={searchHandler}/>
+                        </div>
+                    </div>
+                </div>
                 <hr/>
-                <ProductList productData={fetchedData}/>
+                <ProductList productData={fetchedData} search={productToSearch}/>
                 <Footer/>
             </div>
         )

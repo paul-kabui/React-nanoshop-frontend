@@ -1,48 +1,46 @@
-import {Link} from 'react-router-dom'
-import './navBar.css'
-import {useContext} from "react"
 import LocalCartContext from '../../store/cart-ctx'
+import {Link} from 'react-router-dom'
+import { Navbar, Nav,Container } from 'react-bootstrap';
+import {useContext} from 'react'
 
-function Nav(){
+function NavBar(){
     const cartCtx = useContext(LocalCartContext)
-
     return(
         <div>
-            <nav className="navbar navbar-expand-md bg-dark navbar-dark fixed-top mb-5">
-                <div className="container-fluid">
-                    <h4 className="navbar-brand" >Nano</h4>
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" 
-                        aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                      <span className="navbar-toggler-icon"></span>
-                    </button>
-                    <div className="collapse navbar-collapse" id="navbarCollapse">
-                        <ul className="navbar-nav me-auto mb-2 mb-md-0">
-                            <li className="nav-item">
-                                <Link to="/" className="nav-link active" aria-current="page">Home</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link to="/contact us" className="nav-link">Contact us</Link>
-                            </li>
-                        </ul>
-                        <ul className="d-flex navbar-nav">
-                            <li className="nav-item">
-                                <Link to="/products" className="nav-link">Products</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link to="/my order" className="nav-link">My order</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link to="/Services" className="nav-link">Services</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link to="/cart" className="nav-link">Cart <span className='badge text-primary'>{cartCtx.cartNumber}</span></Link>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
+            <Navbar collapseOnSelect expand="md" bg="dark" variant="dark" fixed="top">
+                <Container>
+                    <Navbar.Brand><Link to="/" className="text-decoration-none text-light">Nano</Link></Navbar.Brand>
+                    <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
+                        <Navbar.Collapse id="responsive-navbar-nav">
+                            <Nav className="me-auto">
+                                <Nav.Link eventKey={1}>
+                                    <Link to="/" className="nav-link active">Home</Link>
+                                </Nav.Link>
+                                <Nav.Link eventKey={2}>
+                                    <Link to="/contact us" className="nav-link">ContactUs</Link>
+                                </Nav.Link>
+                            </Nav>
+                            <Nav>
+                                <Nav.Link eventKey={3}>
+                                    <Link to="Products" className="nav-link">Products</Link>
+                                </Nav.Link>
+                                <Nav.Link eventKey={4}>
+                                    <Link to="/my order" className="nav-link">MyOrder</Link>
+                                </Nav.Link>
+                                <Nav.Link eventKey={6}>
+                                    <Link to="/Services" className="nav-link">Services</Link>
+                                </Nav.Link>
+                                <Nav.Link eventKey={7}>
+                                    <Link to="/cart" className="nav-link px-2">
+                                        Cart <span className='badge bg-light text-dark '>{cartCtx.cartNumber}</span>
+                                    </Link>
+                                </Nav.Link>
+                            </Nav>
+                        </Navbar.Collapse>
+                </Container>
+            </Navbar>
         </div>
     )
 }
 
-export default Nav
+export default NavBar

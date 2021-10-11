@@ -16,7 +16,7 @@ function Cart(props){
     }else{
         return(
             <div className='text-center' style={{'marginTop':'6rem'}}>
-                <h1 style={{'color': 'orange'}}>The cart is empty</h1>
+                <h1 style={{'color': 'orange'}}>Your cart is empty</h1>
                 <Link to='/products'>
                     <button className="mt-4 btn btn-sm btn-outline-dark">continue shopping</button>
                 </Link>

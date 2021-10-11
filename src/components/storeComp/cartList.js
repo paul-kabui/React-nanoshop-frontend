@@ -1,11 +1,12 @@
 import {Link} from 'react-router-dom'
 import CartItem from "./cartItem";
-import CheckOutHandler from './checkout';
+import CheckOut from './checkout';
 import {useState} from 'react'
 
 function CartList(props){
     const recievedData = props.items
     const [checkout, setCheckout] = useState(false)
+    const [serviceStatus,setServiceStatus] = useState('off')
     
     const priceList = []
     for(var item in recievedData){
@@ -24,12 +25,17 @@ function CartList(props){
         return totalPrice += data
     })
 
-    function CheckOutHandlerfunc(){
-        setCheckout(true)
+    const CheckOutHandler = () =>{setCheckout(true)}
+    const checkOutCancel = (state) => {setCheckout(state)}
+    function deliveryHandler(e){
+        setServiceStatus(e.target.value)
+        console.log(e)
     }
 
+    console.log(serviceStatus)
+
     if(checkout){
-        return <CheckOutHandler totalPrice={totalPrice}/>
+        return <CheckOut totalPrice={totalPrice} onCancel={checkOutCancel} />
     }
 
     return <div className="">
@@ -58,19 +64,31 @@ function CartList(props){
                 }
           	</tbody>
         </table>
-		<div className='row'>
-                    <div className="col-md-6">
-                        <div className="border col-md-5 d-flex">
-                            <h5 className='p-1 fw-bold'>Totals : <span style={{'color':'orange'}}>(Kshs){totalPrice}</span></h5>
-                        </div>
-                    </div>
-                    <div className="col-md-6 mt-3 d-flex">
-                        <button className='btn btn-sm btn-outline-success' onClick={CheckOutHandlerfunc}>check out</button>
-                        <Link to='/products'>
-                            <button className='btn btn-sm btn-outline-dark'>continue Shopping</button>
-                        </Link>
-                    </div>
+        <div className='row'>
+            <form>
+                <div className="mb-3 form-check form-switch">
+                    <input className="form-check-input" type="checkbox" onChange={deliveryHandler}
+                        // {
+                        //     (serviceStatus ===)
+                        // }
+                    />
+                    <label className="form-check-label" htmlFor="flexSwitchCheckChecked">Delivery service</label>
                 </div>
+            </form>
+        </div>
+		<div className='row'>
+            <div className="col-md-6">
+                <div className="border col-md-5 d-flex">
+                    <h5 className='p-1 fw-bold'>Totals : <span style={{'color':'orange'}}>(Kshs){totalPrice}</span></h5>
+                </div>
+            </div>
+            <div className="col-md-6 mt-3 d-flex">
+                <button className='btn btn-sm btn-outline-success' onClick={CheckOutHandler}>check out</button>
+                <Link to='/products'>
+                    <button className='btn btn-sm btn-outline-dark'>continue Shopping</button>
+                </Link>
+            </div>
+        </div>
     </div>
 }
 

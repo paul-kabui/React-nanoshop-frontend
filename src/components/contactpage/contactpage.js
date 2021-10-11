@@ -9,7 +9,7 @@ function ContactContent(){
     return(
         <div className="m-3">
             <div className="main-body">
-            <h4 className="fw-bold text text-muted">Leave an Email</h4>
+            <h4 className="fw-bold text text-muted">Contact us</h4>
             <ContactForm/>
             <div className="text-center mt-2">
                 <div className="d-flex justify-content-center py-2">

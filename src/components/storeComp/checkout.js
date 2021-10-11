@@ -10,21 +10,22 @@ function CheckOutHandler(props){
     const cartCtx = useContext(LocalCartContext)
     const detailedList = cartCtx.cartItems
     const telRef = useRef()
-    let [paymentMsg, setPaymentMsg] = useState([])
+    const [paymentMsg, setPaymentMsg] = useState([])
     const [isLoading , setIsLoading] = useState(false)
     const [isOpen, setIsOpen] = useState(true)
-    const [isValid, setISValid] = useState(false)
+    const [isInValid, setISInValid] = useState(false)
+    const [errorMsg, setErrorMSg] = useState(false)
     const history = useHistory()
 
     const closeModal = () => {
         setIsOpen(false)
-        history.replace('/products')
+        history.replace('/cart')
     }
 
     function SubmitHandler(e){
         e.preventDefault()
         const enteredTelNumber = telRef.current.value
-        if(enteredTelNumber.length >= 9){
+        if(enteredTelNumber.length >= 9 && enteredTelNumber.length <= 10){
             fetch(
                 'http://127.0.0.1:8000/Cart',
                 {
@@ -47,10 +48,12 @@ function CheckOutHandler(props){
             }).then((data) => {
                 setPaymentMsg(data)
                 setIsLoading(false)
+            }).catch((error) => {
+                setErrorMSg(true)
             })
             setIsLoading(true)
         }else{
-            setISValid(true)
+            setISInValid(true)
         }
     }
 
@@ -122,12 +125,20 @@ function CheckOutHandler(props){
                 <div className='col-md-6'></div>
                 <div className='col-md-3'>
                     {
-                        isValid ?
+                        isInValid ?
                         <div className="alert alert-danger alert-dismissible fade show" role="alert">
-                        <p>invalid number length</p>
-                        <p>number should start with +254</p>
+                        <p>invalid number</p>
                         <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div> : ''
+                    }
+                    {
+                        errorMsg? 
+                        <div className="alert alert-danger alert-dismissible fade show" role="alert">
+                            <p>Invalid data</p>
+                            <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div> 
+                        :
+                        ''
                     }
                 </div>
             </div>
@@ -139,7 +150,7 @@ function CheckOutHandler(props){
                             <div className='col-md-7'>
                                 <label className='form-label' htmlFor='tel-number'>Mobile number</label>
                                 <div className='d-flex border'>
-                                   <span className='p-2'>+254</span>
+                                   <span className='p-2 border-end'>+254</span>
                                    <input type='text' className='px-3 form-control-plaintext' required placeholder='Phone number' ref={telRef}
                                     />
                                 </div>

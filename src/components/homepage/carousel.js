@@ -20,7 +20,7 @@ function Carousel(){
 					</svg>
 					<div className="container">
 			  			<div className="carousel-caption text-start">
-							<h1 className="heading display-6 fw-bold">Welcome to Electronic Workshop.</h1>
+							<h1 className="heading display-6 fw-bold">Welcome to Nano Electronics.</h1>
 							<p>
 								Find and shop for all Electronics component including: Sensors, Capacitors, Resistor,<br/>
 								Lcd`s, MotherBoard, Ic`s, Microcontrollers etc.
@@ -53,7 +53,7 @@ function Carousel(){
 							<h1 className="heading fw-bold">About Us.</h1>
 							<p>
 								We are a company that sell, maintain and also  repair Electronic devices.<br/>
-								We offer our product at favarouble price.s<br/>
+								We offer our product at favarouble prices<br/>
 								Contact us
 							</p>
 							<Link to="/contact us"><button className="btn btn-primary">Contacts Us</button></Link>

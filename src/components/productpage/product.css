@@ -1,9 +1,13 @@
-.search{
-    margin-top: 4rem;
-}
-.img-fluid{
-    height: 200px;
+
+.img-thumbnail {
+    height: 150px;
 }
 .btn-goCart{
     background-color: orange;
+}
+.priceSpan{
+    color: orange;
+}
+.detail-modal{
+    margin-top: 6rem;
 }

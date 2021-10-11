@@ -4,7 +4,7 @@
     z-index: 10;
 }
 .carousel-item {
-    height: 91vh;
+    height: 91.1vh;
 }
 .carousel-item > img {
     position: absolute;
@@ -20,7 +20,6 @@
     }   
 }
 .heading{
-    /* color: #4dcef6; */
     color: orange;
 }
 
@@ -33,4 +32,5 @@
     background-position: center;
     background-size: cover;
     opacity: 0.5;
+    background-repeat: no-repeat;
 }

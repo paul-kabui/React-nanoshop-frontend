@@ -8,35 +8,36 @@ import OrderPage from './pages/order';
 import Contact from './pages/contact';
 import About from './pages/about';
 import Cart from './pages/cart';
+import NavBar from './components/navbar/navBar';
 
-import Nav from './components/navbar/navBar';
 
-function App() {
-  return (
-    <div>
-		<Nav/>
-		<Switch>
-			<Route path="/" exact>
-				<Home/>
-			</Route>
-			<Route path="/contact us">
-				<Contact/>
-			</Route>
-			<Route path="/products">
-				<Product/>
-			</Route>
-			<Route path="/my order">
-				<OrderPage/>
-			</Route>
-			<Route path="/Services">
-				<About/>
-			</Route>
-			<Route path="/cart">
-				<Cart/>
-			</Route>
-		</Switch>
-    </div>
-  );
+function App(){
+	console.log(document.cookie)
+  	return (
+  	  <div>
+			<NavBar/>
+			<Switch>
+				<Route path="/" exact>
+					<Home/>
+				</Route>
+				<Route path="/contact us">
+					<Contact/>
+				</Route>
+				<Route path="/products">
+					<Product/>
+				</Route>
+				<Route path="/my order">
+					<OrderPage/>
+				</Route>
+				<Route path="/Services">
+					<About/>
+				</Route>
+				<Route path="/cart">
+					<Cart/>
+				</Route>
+			</Switch>
+  	  </div>
+  	);
 }
 
 export default App;
