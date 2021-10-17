@@ -8,7 +8,6 @@ const LocalCartContext = createContext({
     removeFromCart : (productId) => {},
     updateCart : (id,newPrice,newQuantity) => {},
     isCartItem : (productId) => {}
-
 })
 
 
@@ -43,7 +42,7 @@ export function LocalCartContextProvider(props){
         addToCart : addToCartHandler,
         removeFromCart : removeFromCartHandler,
         updateCart : updateCartDataHandler,
-        isCartItem : isCartItemHandler
+        isCartItem : isCartItemHandler,
     }
 
     return <LocalCartContext.Provider value={context}>

@@ -1,5 +1,4 @@
 import {Route, Switch} from 'react-router-dom'
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import Home from './pages/home'
@@ -12,7 +11,6 @@ import NavBar from './components/navbar/navBar';
 
 
 function App(){
-	console.log(document.cookie)
   	return (
   	  <div>
 			<NavBar/>

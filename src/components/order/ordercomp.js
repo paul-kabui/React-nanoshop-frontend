@@ -1,5 +1,5 @@
 import './order.css'
-import {useRef, useState} from 'react'
+import {useRef, useState, useEffect} from 'react'
 import DisplayOrder from './displayOrder'
 
 function OrderForm(){
@@ -7,42 +7,40 @@ function OrderForm(){
     const codeRef = useRef()
     const [isLoaded, setIsLoaded] = useState(false)
     const [orderData, setOrderData] = useState([])
-    const [errorMsg, setErrorMsg] = useState(false)
+    const [localErrorMsg, setLocalErrorMsg] = useState(false)
+    const [respError, setRespError] = useState('')
+    const [csrfToken, setCsrfToken] = useState('')
+
+    useEffect(() => {
+        fetch("http://127.0.0.1:8000/csrf",{
+            credentials: 'include',
+        })
+        .then((resp) =>{
+            let token = resp.headers.get("X-CSRFToken")
+            setCsrfToken(token)
+        }).catch((err) => {
+            setLocalErrorMsg(true)
+        })
+    }// eslint-disable-next-line
+	,[])
 
     function SubmitHandler(e){
         e.preventDefault()
         const enteredPhone = phoneRef.current.value
         const enteredCode = codeRef.current.value
 
-        function getCookie(name) {
-            let cookieValue = null;
-            if (document.cookie && document.cookie !== '') {
-                const cookies = document.cookie.split(';');
-                for (let i = 0; i < cookies.length; i++) {
-                    const cookie = cookies[i].trim();
-                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                        break;
-                    }
-                }
-            }
-            return cookieValue;
-        }
-        const csrftoken = getCookie('csrftoken');
-        console.log(csrftoken)
-
         fetch(
-            'http://127.0.0.1:8000/Order',
+            'http://127.0.0.1:8000/api/Order',
             {
                 method : 'POST',
                 credentials: 'include',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
-                    "X-CSRFToken" : csrftoken,
+                    "X-CSRFToken" : csrfToken,
                 },
                 body:JSON.stringify({
-                    csrfmiddlewaretoken: csrftoken,
+                    csrfmiddlewaretoken: csrfToken,
                     "phoneNumber":enteredPhone,
                     "mpesaCode":enteredCode
                 }),
@@ -51,25 +49,40 @@ function OrderForm(){
         .then(rensponse =>{
             return rensponse.json()
         }).then((data) => {
-            const rcvdOrder = data.myOrder
-            setOrderData(rcvdOrder)
-            setIsLoaded(true)
+            const respInfo = data.info
+            if(typeof respInfo === 'string'){
+                setRespError(respInfo)
+            }else{
+                setOrderData(respInfo)
+                setIsLoaded(true)
+            }
         }).catch((error) =>{
-            setErrorMsg(true)
+            setLocalErrorMsg(true)
         })
     }
 
+    const backHandler = () => {setIsLoaded(false)}
+
     if(isLoaded){
-        return <DisplayOrder order={orderData}/>
+        return <DisplayOrder order={orderData} onCancel={backHandler}/>
     }
 
     return(
         <div>
             <div  className="order-form col-md-4 p-5 border ms-auto me-auto shadow">
             {
-                errorMsg? 
+                localErrorMsg? 
                 <div className="alert alert-danger alert-dismissible fade show" role="alert">
-                    <p>Incorect Mobile number or Mpesa code </p>
+                    <p>Unable to connect!! please check your internet connection or Reload</p>
+                    <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div> 
+                :
+                ''
+            }
+            {
+                (respError !== '')?
+                <div className="col-md-12 alert alert-danger alert-dismissible fade show" role="alert">
+                    <p>{respError}</p>
                     <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div> 
                 :

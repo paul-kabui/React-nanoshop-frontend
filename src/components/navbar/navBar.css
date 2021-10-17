@@ -1,4 +1,14 @@
-
-.navbar-brand{
-    color: black;
+.Navbar{
+    background-color: black;
+}
+@media (min-width: 768px) {
+    .Navbar{
+        height: 10vh;
+    }
+}
+.cart-icon{
+    height: 29px;
+}
+.text-orange{
+    color: orange;
 }

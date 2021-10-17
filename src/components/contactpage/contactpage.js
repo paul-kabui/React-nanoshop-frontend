@@ -1,28 +1,13 @@
 import './contact.css'
 import ContactForm from './form'
-import facebook from './images/facebook.svg'
-import twitter from './images/twitter.svg'
-import phone from './images/contact.svg'
-import email from './images/email.svg'
 
 function ContactContent(){
     return(
         <div className="m-3">
             <div className="main-body">
-            <h4 className="fw-bold text text-muted">Contact us</h4>
-            <ContactForm/>
-            <div className="text-center mt-2">
-                <div className="d-flex justify-content-center py-2">
-                    <a href="//https://twitter.com/paulkabui01"><img src={email} alt="not found" height="35px"/></a>
-                    <a href="//https://twitter.com/paulkabui01"><img src={twitter} alt="not found" height="35px" className="px-5"/></a>
-                    <a href="//facebook.com"><img src={facebook} alt="not found" height="35px"/></a><br/><br/>
-                </div>
-                <div>
-                    <span><img src={phone} alt="not found" height="35px"/>0790879541</span><br/>
-                    <span><img src={phone} alt="not found" height="35px"/>0731535249</span>
-                </div>
+                <h4 className="fw-bold text text-orange">Contact us</h4>
+                <ContactForm/>
             </div>
-        </div>
         </div>
     )
 }

@@ -2,17 +2,17 @@ import './order.css'
 import {Link} from 'react-router-dom'
 
 function DisplayOrder(props){
-    console.log('props',props.order)
     var count = 0
     return(
         <div className='order-display'>
-            <div className="col-md-4 ms-auto me-auto">
+            <div className="col-md-4 ms-auto me-auto border p-4">
                 <h1 className='track fw-bold'>my order</h1>
                 <table className="table table-striped">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">ProductName</th>
+                            <th scope="col">Product</th>
+                            <th scope="col"> </th>
                             <th scope="col">Quantity</th>
                         </tr>
                     </thead>
@@ -24,6 +24,7 @@ function DisplayOrder(props){
                                     <tr key={count}>
                                         <th scope="row">{count}</th>
                                         <td>{data.Name}</td>
+                                        <td>:</td>
                                         <td>{data.quantity}</td>
                                     </tr>
                                 )
@@ -36,13 +37,14 @@ function DisplayOrder(props){
                         <p>Totals: <span className='track'>{props.order.totals}</span></p>
                     </div>
                     <div className='col-md-6 border-bottom'>
-                        <p>delivery status: <span className='text-primary'>{props.order.orderStatus}</span></p>
+                        <p>Status: <span className='text-primary'>{props.order.orderStatus}</span></p>
                     </div>
                 </div>
-                <div>
+                <div className='btn-group pt-3'>
                     <Link to='/contact us'>
-                        <span className='text-primary'>If issue send us an email</span>
+                        <button className='btn btn-sm btn-outline-danger'>If issue send us an email</button>
                     </Link>
+                    <button className='btn btn-sm btn-outline-dark' onClick={props.onCancel}>Back</button>
                    
                 </div>
             </div>

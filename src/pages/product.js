@@ -1,4 +1,3 @@
-
 import Footer from "../components/productpage/footer"
 import ProductList from "../components/productpage/productList"
 
@@ -12,7 +11,7 @@ function Product(){
 
     useEffect(() => {
         fetch(
-            'http://127.0.0.1:8000/products',
+            'http://127.0.0.1:8000/api/products',
             
         ).then(rensponse =>{
             return rensponse.json()
@@ -39,7 +38,6 @@ function Product(){
     function searchHandler(e){
         setProductToSearch(e.target.value)
     }
-    
     if(isLoading){
         return(
             <div className="text-center" style={{"marginTop":"14rem"}}>
@@ -53,7 +51,7 @@ function Product(){
 
     if(fetchedData.length !== 0){
         return(
-            <div className='m-3'>
+            <div className='m-4'>
                 {
                     errorMsg? 
                     <div className="col-md-9 alert alert-danger alert-dismissible fade show" role="alert">
@@ -64,7 +62,7 @@ function Product(){
                     :
                     ''
                 }
-                <div className="container-fluid search">
+                <div className="container-fluid search" style={{'marginTop':'5rem'}}> 
                     <div className="row">
                         <div className="col-md-9"></div>
                         <div className="col-md-3">

@@ -37,7 +37,6 @@ function ProductItem(props){
                     </ModalTitle>
                 </ModalHeader>
                 <ModalBody>
-                    <h4 className='text-decoration-underline'>Description</h4>
                     <p className='text-start'>{props.description}</p>
                 </ModalBody>
                 <ModalFooter>
@@ -75,7 +74,7 @@ function ProductItem(props){
                         <p>Kshs: <span className="fw-bold priceSpan">{props.price}</span></p>        
                     </div>
                     <div className="btn-group">
-                        <button className='btn btn-sm btn-outline-primary' onClick={openModal}>Details</button>
+                        <button className='btn btn-sm btn-outline-primary' onClick={openModal}>Specs</button>
                         {
                         isCartItem ? <button className="btn btn-sm btn-success"onClick={cartHandler}>
                             Added to cart

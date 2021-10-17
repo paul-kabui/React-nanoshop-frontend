@@ -3,7 +3,7 @@ function AboutCont(){
     return(
         <div className="container-md">
             <div className="m-4">
-                <h2 className="text-muted">Our services</h2>
+                <h2 style={{'color':'orange'}}>Our services</h2>
                 <div className="row border p-2 p-md-5 bg-light shadow">
                       <h3 className="display-6">We sell Electronic component and digital gadgets</h3>
                       <p>

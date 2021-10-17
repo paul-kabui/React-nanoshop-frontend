@@ -5,8 +5,27 @@
     padding-left: 4.6rem;
 }
 .cont-form{
-    background-image: linear-gradient(to right bottom, white, grey);
+    background-image: linear-gradient(to right bottom, white, #e0e0e0);
+    border-radius: 10px;
+    box-shadow: 19px 19px 32px #adacac, -19px -19px 32px #f0f0f0;
 }
-.form-cnt{
-    border-right: 0.5px solid rgb(75, 74, 74);
+.text-orange{
+    color: orange;
+}
+.img-location:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 10px #f0f0f0;
+}
+.img-location:focus {
+    transform: scale(1.2);
+    box-shadow: 0 0 10px #f0f0f0;
+}
+
+@media (min-width: 768px) {
+    .img-location{
+        height: 320px;
+    } 
+}
+.form-ctrl:hover{
+    box-shadow: 19px 19px 32px #adacac;
 }

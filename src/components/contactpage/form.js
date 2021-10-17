@@ -1,5 +1,9 @@
 import './contact.css'
-import {useRef, useState} from 'react'
+import {useRef, useState, useEffect} from 'react'
+import phone from './images/contact.svg'
+import location from '../../mainImages/google3.jpeg'
+import email from '../../mainImages/email.svg'
+
 
 function ContactForm(){
 
@@ -10,6 +14,20 @@ function ContactForm(){
     const [respInfo, setRespInfo] = useState([])
     const [loaded, setLoaded] = useState(false)
     const [errorMsg, setErrorMsg] = useState(false)
+    const [csrfToken, setCsrfToken] = useState('')
+
+    useEffect(() => {
+        fetch("http://127.0.0.1:8000/csrf",{
+            credentials: 'include',
+        })
+        .then((resp) =>{
+            let token = resp.headers.get("X-CSRFToken")
+            setCsrfToken(token)
+        }).catch((err) => {
+            setErrorMsg(true)
+        })
+    }// eslint-disable-next-line
+	,[])
 
     function emailHandler(e){
         e.preventDefault()
@@ -19,16 +37,17 @@ function ContactForm(){
 
 
         fetch(
-            'http://127.0.0.1:8000/Emails',
+            'http://127.0.0.1:8000/api/email',
             {
                 method : 'POST',
                 credentials: 'include',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
+                    "X-CSRFToken" : csrfToken,
                 },
                 body:JSON.stringify({
-                    // csrfmiddlewaretoken: csrftoken,
+                    csrfmiddlewaretoken: csrfToken,
                     'email' : emailField,
                     'subject' : subjectField,
                     'message' : messageField
@@ -42,21 +61,21 @@ function ContactForm(){
             setRespInfo(data)
             setLoaded(true)
             
-        }).then((error) => {
+        })
+        .catch((err) => {
             setErrorMsg(true)
-            console.log('errror',error)
         })
 
 
     }
     return(
-        <div className="container-md shadow border cont-form">
+        <div className="container-md border cont-form">
             <div className="row">
-                <div className='col-md-6 form-cnt'>
-                    <form className="p-2 p-md-5" onSubmit={emailHandler}>
+                <div className='col-md-6'>
+                    <form className="p-2 p-md-3" onSubmit={emailHandler}>
                         {
                             loaded? 
-                                <div className="col-md-9 alert alert-success alert-dismissible fade show" role="alert">
+                                <div className="col-md-9 alert alert-info alert-dismissible fade show" role="alert">
                                     <h4>{respInfo.info}</h4>
                                     <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div> 
@@ -65,7 +84,7 @@ function ContactForm(){
                         {
                             errorMsg? 
                             <div className="col-md-7 alert alert-danger alert-dismissible fade show" role="alert">
-                                <p>Error! invalid inputs</p>
+                                <p>Unable to connect!! please check your internet connection or Reload</p>
                                 <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div> 
                             :
@@ -73,37 +92,43 @@ function ContactForm(){
                         }
                         <div className="col-md-9">
                             <label htmlFor="email">Email</label>
-                            <input type="email" className="form-control" placeholder="Enter your Email" required ref={emailRef}/>
+                            <input type="email" className="form-control form-ctrl" placeholder="Enter your Email" required ref={emailRef}/>
                         </div>
                         <div className="col-md-9">
                             <label htmlFor="subject">Subject</label>
-                            <input type="text" className="form-control" placeholder="Subject" required ref={subjectRef}/>
+                            <input type="text" className="form-control form-ctrl" placeholder="Subject" required ref={subjectRef}/>
                         </div>
                         <div className="col-md-10">
                             <label htmlFor="message">Message</label>
-                            <textarea required className="form-control" rows="5" ref={messageRef}></textarea>
+                            <textarea required className="form-control form-ctrl" rows="5" ref={messageRef}></textarea>
                         </div>
                         <br/>
                         <button type="submit" className="btn btn-primary">Submit</button>
                     </form>
                 </div>
-                <div className="col-md-6 mt-md-5 text-start">
-                    <span className="fw-bold text-muted display-6">if your want to:</span>
-                    <ul className="list-unstyled">
-                        <li className='px-4'>* Send a comment</li>
-                        <li className='px-4'>* place a bulk order</li>
-                        <li className='px-4'>* Use other payment method other than that provided</li>
-                    </ul>
-                    <span className="display-6 text-muted fw-bold">If your facing issues with:</span>
-                        <ul className='list-unstyled list-group'>
-                            <li className='px-4'>* Accessing the site</li>
-                            <li className='px-4'> * Placing an order</li>
-                            <li className='px-4'>*Tracking you order</li>
-                            <li className='px-4'>*Trouble with making payment</li>
-                        </ul>
-                        <h4 className='text-muted mt-3'>
-                            send as an email and we will give you feedback immediately
-                        </h4>
+                <div className="col-md-6 mt-md-2 text-start">
+                    <span className="fw-bold display-6 text-muted">
+                        Our Location
+                    </span><br/>
+                    <span>not actual location(remember to update)</span>
+                    <div className='row'>
+                        <img src={location} className='img-fluid img-location border-dark' alt='thika'/>
+                    </div>
+                    <div className='row'>
+
+                    </div>
+                </div>
+            </div>
+            <hr/>
+            <div className='row mb-3'>
+                <div className='col-md-4'>
+                    <span><img src={phone} alt="not found" height="35px"/>0790879541</span>
+                </div>
+                <div className='col-md-4'>
+                    <span><img src={phone} alt="not found" height="35px"/>0731535249</span>
+                </div>
+                <div className='col-md-4'>
+                    <span><img src={email} alt="not found" height="35px"/>paulphauz95@gmail.com</span>
                 </div>
             </div>
            
